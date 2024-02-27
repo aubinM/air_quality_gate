@@ -2,11 +2,13 @@
 include('classes/City.php');
 session_start();
 
-if(!isset($_SESSION['selectedCity'])){
+if (!isset($_SESSION['selectedCity'])) {
   $_SESSION['selectedCity'] = $paris;
 }
 
 $selectedCity = $_SESSION['selectedCity'];
+$datas = $_SESSION['datas'];
+
 ?>
 
 <!DOCTYPE html>
@@ -27,6 +29,7 @@ $selectedCity = $_SESSION['selectedCity'];
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" />
   <link href="assets/css/custom.css" rel="stylesheet" />
 </head>
 
@@ -64,6 +67,9 @@ $selectedCity = $_SESSION['selectedCity'];
                   <option <?php if ($selectedCity->getName() === 'Reims') echo 'selected';  ?> value="reims">Reims</option>
                 </select>
               </div>
+              <div class="mb-3">
+                <input class="datepicker" name="date" data-date-format="mm/dd/yyyy">
+              </div>
               <button type="submit" class="btn btn-success">Valider</button>
             </form>
           </div>
@@ -89,29 +95,33 @@ $selectedCity = $_SESSION['selectedCity'];
           <h1 class="display-5 fw-bold pb-3">
             Historique de la qualité de l'air
           </h1>
-          <h4>Ville sélectionnée : <span class="badge text-bg-primary"><?php echo($selectedCity->getName()); ?></span></h4>
+          <h4>Ville sélectionnée : <span class="badge text-bg-primary"><?php echo ($selectedCity->getName()); ?></span></h4>
 
           <div class="table-responsive">
             <table class="table table-borderless table-striped align-middle">
               <thead>
                 <tr>
-                  <th scope="col">Date</th>
+                  <th scope="col">Heure</th>
                   <th scope="col">Qualité de l'air</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <?php
+                if($datas !== ""){
+                  foreach ($datas as $key => $data) {
+                    echo '<tr>
+                    <th>'.$data['dateTime'].'</th>
+                    <td><span class="badge text-bg-danger">'.$data['category'].'</span></td>
+                  </tr>';
+                  }
+
+                }
+
+                ?>
+                <!-- <tr>
                   <th>1</th>
                   <td><span class="badge text-bg-danger">Mauvaise</span></td>
-                </tr>
-                <tr>
-                  <th>2</th>
-                  <td><span class="badge text-bg-danger">Mauvaise</span></td>
-                </tr>
-                <tr>
-                  <th>3</th>
-                  <td><span class="badge text-bg-danger">Mauvaise</span></td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
           </div>
@@ -123,8 +133,12 @@ $selectedCity = $_SESSION['selectedCity'];
       </footer>
     </div>
   </main>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.fr.min.js" integrity="sha512-fx3aztaUjb4NyoD+Tso5g7R1l29bU3jnnTfNRKBiY9fdQOHzVhKJ10wEAgQ1zM/WXCzB9bnVryHD1M40775Tsw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="assets/js/main.js"></script>
 </body>
 
