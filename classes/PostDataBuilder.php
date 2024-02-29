@@ -14,7 +14,7 @@ class PostDataBuilder
             "startTime" => $startTime,
             "endTime" => $endTime
         ];
-        $this->pageSize = "1";
+        $this->pageSize = "24";
         $this->pageToken = "";
         $this->location = [
             "latitude" => $latitude,
