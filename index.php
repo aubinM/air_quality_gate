@@ -1,5 +1,6 @@
 <?php
 include('classes/City.php');
+include('utils.php');
 session_start();
 
 if (!isset($_SESSION['selectedCity'])) {
@@ -7,7 +8,11 @@ if (!isset($_SESSION['selectedCity'])) {
 }
 
 $selectedCity = $_SESSION['selectedCity'];
-$datas = $_SESSION['datas'];
+if(isset($_SESSION['datas'])){
+  $datas = $_SESSION['datas'];
+} else {
+  $datas = [];
+}
 
 ?>
 
@@ -110,8 +115,8 @@ $datas = $_SESSION['datas'];
                 if($datas !== ""){
                   foreach ($datas as $key => $data) {
                     echo '<tr>
-                    <th>'.$data['dateTime'].'</th>
-                    <td><span class="badge text-bg-danger">'.$data['category'].'</span></td>
+                    <th>'.convert_date_to_display_format($data['dateTime']).'</th>
+                    <td><span class="badge bg-primary '.getDisplayFromAqi($data['aqi']).'">'.$data['category'].'</span></td>
                   </tr>';
                   }
 

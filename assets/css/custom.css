@@ -79,3 +79,31 @@
 th, td {
   text-align: center;
   } 
+
+.custom-bg-perfect{
+  background-color: #009E3A !important;
+  color: black;
+}
+
+.custom-bg-good{
+  background-color: #84CF33 !important;
+  color: black;
+}
+
+.custom-bg-middle{
+  background-color: #FFFF00 !important;
+  color: black;
+}
+
+.custom-bg-bad{
+  background-color: #FF8C00 !important;
+  color: black;
+}
+.custom-bg-verybad{
+  background-color: #FF0000 !important;
+  color: black;
+}
+.custom-bg-severe{
+  background-color: #FF8C00 !important;
+  color: black;
+}
