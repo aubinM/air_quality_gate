@@ -11,8 +11,13 @@ Ce projet est un projet simple écrit en PHP 8.2.12, pour le lancer vous avez se
 - PHP 8.2.12
 - HTML
 - CSS / Boostrap 5.3
-- Javascript  
+- Javascript
 
+Vous avez également la possibilité de lancer le projet de manière conteneurisé avec Docker, pour cela il vous suffit de vous rendre sur la branche suivante : 
+
+`docker-branch`
+
+Les instructions complémentaires se trouve dans le Readme de cette branche.
 
 ## Variables d'envrionnement
 
@@ -35,7 +40,7 @@ Pour cela il vous suffit de copier/coller le fichier **.env** en **.env.local** 
 
 Les dépendances du projet ont été ajouté via dess CDN pour simplifier au maximum l'execution du projet, l'ajout des dépendances via un package manager serait meilleure.
 
-- [Boostrap](https://getbootstrap.com/)
+- [Bootstrap](https://getbootstrap.com/)
 - [Datatables](https://datatables.net/)
 - [Datepicker Bootstrap](https://bootstrap-datepicker.readthedocs.io/en/latest/)
 
