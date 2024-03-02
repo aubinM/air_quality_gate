@@ -38,7 +38,7 @@ http://localhost:8080
 Arrêt du serveur Web avec docker : 
 
 ````
-docker-compose down -d
+docker-compose down
 ````
 
 ## Variables d'envrionnement
