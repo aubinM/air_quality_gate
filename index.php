@@ -1,40 +1,52 @@
 <?php
-include('classes/City.php');
-include('utils.php');
+require_once('classes/City.php');
+require_once('utils.php');
 session_start();
 
-if (!isset($_SESSION['selectedCity'])) {
-  $_SESSION['selectedCity'] = $paris;
+// Mise à jour des variables en fonction de la session de l'utilisateur
+if (isset($_SESSION['selectedCity'])) {
+  $selectedCity = $_SESSION['selectedCity'];
+} else {
+  $selectedCity  = $paris;
 }
 
-$selectedCity = $_SESSION['selectedCity'];
-if(isset($_SESSION['datas'])){
+if (isset($_SESSION['selectedDate'])) {
+  $selectedDate = $_SESSION['selectedDate'];
+} else {
+  $selectedDate = "";
+}
+
+if (isset($_SESSION['datas'])) {
   $datas = $_SESSION['datas'];
 } else {
   $datas = [];
 }
 
+if (isset($_SESSION['APIerror'])) {
+  $error = $_SESSION['APIerror'];
+}
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="auto">
+<html lang="fr" data-bs-theme="auto">
 
 <head>
-  <!-- <script src="assets/js/color-modes.js"></script> -->
-
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="" />
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors" />
-  <meta name="generator" content="Hugo 0.122.0" />
+  <meta name="description" content="This page display the air quality via a request to the Google Air Quality API." />
+  <meta name="author" content="Aubin Mathieu, 2024" />
+  <meta name="generator" content="Aubin Mathieu 1.0.0" />
   <title>Air Quality Gate</title>
 
+  <!-- Imports css -->
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/jumbotron/" />
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" />
-
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.bootstrap5.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.bootstrap5.css" />
   <link href="assets/css/custom.css" rel="stylesheet" />
 </head>
 
@@ -65,7 +77,8 @@ if(isset($_SESSION['datas'])){
         <div class="col-md-6">
           <div class="h-100 p-5 text-bg-dark rounded-3">
             <h3>Sélectionner une ville</h3>
-            <form action="getData.php" method="get" id="form-country-selector" class="py-4">
+            <!-- Formulaire de sélection de la ville et de la date souhaitée -->
+            <form action="getDataFromApi.php" method="get" id="form-country-selector" class="py-4">
               <div class="mb-3">
                 <select class="form-select" name="city" aria-label="Default select example">
                   <option <?php if ($selectedCity->getName() === 'Paris') echo 'selected';  ?> value="paris">Paris</option>
@@ -73,9 +86,18 @@ if(isset($_SESSION['datas'])){
                 </select>
               </div>
               <div class="mb-3">
-                <input class="datepicker" name="date" data-date-format="mm/dd/yyyy">
+                <input class="datepicker" name="date" data-date-format="mm/dd/yyyy" value=<?php echo $selectedDate ?>>
               </div>
               <button type="submit" class="btn btn-success">Valider</button>
+              <?php
+              if (isset($error)) {
+                echo '<div class="pt-2">
+                <div class="alert alert-danger" role="alert">
+                  '.$error.'
+                </div>
+              </div>';
+              }
+              ?>
             </form>
           </div>
         </div>
@@ -100,10 +122,11 @@ if(isset($_SESSION['datas'])){
           <h1 class="display-5 fw-bold pb-3">
             Historique de la qualité de l'air
           </h1>
-          <h4>Ville sélectionnée : <span class="badge text-bg-primary"><?php echo ($selectedCity->getName()); ?></span></h4>
+          <h4>Ville sélectionnée : <span class="badge text-bg-success"><?php echo ($selectedCity->getName()); ?></span></h4>
 
           <div class="table-responsive">
-            <table class="table table-borderless table-striped align-middle">
+            <!-- Tableau de restitution des données de qualité de l'air -->
+            <table id="dataViewver" class="table table-borderless table-striped align-middle">
               <thead>
                 <tr>
                   <th scope="col">Heure</th>
@@ -112,21 +135,17 @@ if(isset($_SESSION['datas'])){
               </thead>
               <tbody>
                 <?php
-                if($datas !== ""){
+                if ($datas !== "") {
                   foreach ($datas as $key => $data) {
                     echo '<tr>
-                    <th>'.convert_date_to_display_format($data['dateTime']).'</th>
-                    <td><span class="badge bg-primary '.getDisplayFromAqi($data['aqi']).'">'.$data['category'].'</span></td>
+                    <th>' . convertDateToDisplayFormat($data['dateTime']) . '</th>
+                    <td><span class="badge bg-primary ' . getDisplayFromAqi($data['aqi']) . '">' . $data['category'] . '</span></td>
                   </tr>';
                   }
-
                 }
 
                 ?>
-                <!-- <tr>
-                  <th>1</th>
-                  <td><span class="badge text-bg-danger">Mauvaise</span></td>
-                </tr> -->
+
               </tbody>
             </table>
           </div>
@@ -138,12 +157,19 @@ if(isset($_SESSION['datas'])){
       </footer>
     </div>
   </main>
+
+  <!-- Imports javascript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" integrity="sha512-LsnSViqQyaXpD4mBBdRYeP6sRwJiJveh2ZIbW41EBrNmKxgr/LFZIiWT6yr+nycvhvauz8c2nYMhrP80YhG7Cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/locales/bootstrap-datepicker.fr.min.js" integrity="sha512-fx3aztaUjb4NyoD+Tso5g7R1l29bU3jnnTfNRKBiY9fdQOHzVhKJ10wEAgQ1zM/WXCzB9bnVryHD1M40775Tsw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap5.js"></script>
+  <script src="https://cdn.datatables.net/responsive/3.0.0/js/dataTables.responsive.js"></script>
+  <script src="https://cdn.datatables.net/responsive/3.0.0/js/responsive.bootstrap5.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 

@@ -1,5 +1,10 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * PostDataBuilder
+ * Classe permettant de construire le corps de la requête API
+ */
 class PostDataBuilder
 {
     private $period;
@@ -7,8 +12,18 @@ class PostDataBuilder
     private $pageToken;
     private $location;
     private $languageCode;
-
-    public function __construct($startTime, $endTime, $latitude, $longitude)
+    
+    /**
+     * Method __construct
+     *
+     * @param string $startTime Date de début de récupération des données
+     * @param string $endTime  Date de fin de récupération des données
+     * @param string $latitude Latitude de la ville souhaitée
+     * @param string $longitude Longitude de la ville souhaitée
+     *
+     * @return void
+     */
+    public function __construct(string $startTime, string $endTime, float $latitude, float $longitude)
     {
         $this->period = [
             "startTime" => $startTime,
@@ -22,8 +37,14 @@ class PostDataBuilder
         ];
         $this->languageCode = "fr";
     }
-
-    public function build()
+    
+    /**
+     * Method build
+     * Construction du corps de la reqsuête
+     *
+     * @return string
+     */
+    public function build(): string|false
     {
         $requestData = [
             "period" => $this->period,
@@ -37,5 +58,3 @@ class PostDataBuilder
     }
 }
 
-
-?>

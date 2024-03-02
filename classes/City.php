@@ -1,60 +1,92 @@
 <?php
 
+/**
+ * City
+ * Cette classe représente une ville
+ */
 class City {
     private string $name;
     private float $latitude;
     private float $longitude;
-    private array $historique;
-
-    public function __construct(string $name, float $latitude, float $longitude, array $historique) {
+    
+    /**
+     * Method __construct
+     *
+     * @param string $name Nom de la ville
+     * @param float $latitude Latitude de la ville
+     * @param float $longitude Longitude de la ville
+     *
+     * @return void
+     */
+    public function __construct(string $name, float $latitude, float $longitude) {
         $this->name = $name;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
-        $this->historique = $historique;
     }
-
+    
+    /**
+     * Method getName
+     *
+     * @return string
+     */
     public function getName(): string{
         return $this->name;
     }
-
-    public function setName($name): void{
+    
+    /**
+     * Method setName
+     *
+     * @param string $name
+     *
+     * @return void
+     */
+    public function setName(string $name): void{
         $this->name = $name;
     }
-
+    
+    /**
+     * Method getLatitude
+     *
+     * @return float
+     */
     public function getLatitude(): float {
         return $this->latitude;
     }
-
+    
+    /**
+     * Method setLatitude
+     *
+     * @param float $latitude
+     *
+     * @return void
+     */
     public function setLatitude(float $latitude): void {
         $this->latitude = $latitude;
     }
-
+    
+    /**
+     * Method getLongitude
+     *
+     * @return float
+     */
     public function getLongitude(): float {
         return $this->longitude;
     }
-
+    
+    /**
+     * Method setLongitude
+     *
+     * @param float $longitude
+     *
+     * @return void
+     */
     public function setLongitude(float $longitude): void {
         $this->longitude = $longitude;
     }
 
-    public function getHistorique(): array {
-        return $this->historique;
-    }
-
-    public function setHistorique(array $historique): void {
-        $this->historique = $historique;
-    }
 }
 
-// Exemple d'utilisation :
-$paris = new City("Paris", 48.866667, 2.333333, []);
-$reims = new City("Reims", 49.258329, 4.031696, []);
+// Initialisation des 2 villes
+$paris = new City("Paris", 48.866667, 2.333333);
+$reims = new City("Reims", 49.258329, 4.031696);
 
-// echo "Latitude : " . $ville->getLatitude() . "\n";
-// echo "Longitude : " . $ville->getLongitude() . "\n";
-// echo "Historique :\n";
-// foreach ($ville->getHistorique() as $event) {
-//     echo "- $event\n";
-// }
-
-?>
