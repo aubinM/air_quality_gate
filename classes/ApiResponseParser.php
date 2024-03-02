@@ -1,8 +1,21 @@
 <?php
+declare(strict_types=1);
 
+/**
+ * ApiResponseParser
+ * Cette classe permet de parser des données pour seulement récupérer les données utiles
+ */
 class ApiResponseParser
 {
-    public static function parse($json)
+        
+    /**
+     * Method parse
+     *
+     * @param string $json données a parser
+     *
+     * @return array $parsedData tableau de données contenant les données utiles
+     */
+    public static function parse(string $json): array
     {
         $parsedData = [];
         $response = json_decode($json, true);
@@ -18,9 +31,6 @@ class ApiResponseParser
                 }
             }
         }
-
         return $parsedData;
     }
 }
-
-?>
