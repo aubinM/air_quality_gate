@@ -38,7 +38,9 @@ Pour cela il vous suffit de copier/coller le fichier **.env** en **.env.local** 
 
 Pour lancer les tests unitaires, il vous suffit de vous rendre dans le dossier /tests et de lancer la commande suivante : 
 
-`./phpunit --bootstrap autoload.php UtilsTest.php`
+```
+./phpunit --bootstrap autoload.php UtilsTest.php
+```
 
 ## Dépendances
 
