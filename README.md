@@ -56,7 +56,11 @@ Pour cela il vous suffit de copier/coller le fichier **.env** en **.env.local** 
 - Execution d'un appel à l'API Google Air quality pour récupérer les données
 - Restitution des données API dans un tableau datatable permetant de filtrer les données
 
+## Tests unitaires
 
+Pour lancer les tests unitaires, il vous suffit de vous rendre dans le dossier /tests et de lancer la commande suivante : 
+
+`./phpunit --bootstrap autoload.php UtilsTest.php`
 
 ## Dépendances
 
