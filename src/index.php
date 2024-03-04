@@ -1,6 +1,6 @@
 <?php
 require_once('classes/City.php');
-require_once('src/utils.php');
+require_once('utils.php');
 session_start();
 
 // Mise à jour des variables en fonction de la session de l'utilisateur
@@ -78,7 +78,7 @@ if (isset($_SESSION['APIerror'])) {
           <div class="h-100 p-5 text-bg-dark rounded-3">
             <h3>Sélectionner une ville</h3>
             <!-- Formulaire de sélection de la ville et de la date souhaitée -->
-            <form action="src/getDataFromApi.php" method="get" id="form-country-selector" class="py-4">
+            <form action="getDataFromApi.php" method="get" id="form-country-selector" class="py-4">
               <div class="mb-3">
                 <select class="form-select" name="city" aria-label="Default select example">
                   <option <?php if ($selectedCity->getName() === 'Paris') echo 'selected';  ?> value="paris">Paris</option>

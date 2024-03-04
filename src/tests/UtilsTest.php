@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-require_once '../src/utils.php';
+require_once '../utils.php';
 
 class UtilsTest extends TestCase
 {    

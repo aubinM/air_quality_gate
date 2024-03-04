@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
 session_start();
-require_once('../classes/APIClient.php');
-require_once('../classes/APIresponseParser.php');
-require_once('../classes/City.php');
-require_once('../classes/PostDataBuilder.php');
+require_once('classes/APIClient.php');
+require_once('classes/APIresponseParser.php');
+require_once('classes/City.php');
+require_once('classes/PostDataBuilder.php');
 require_once('utils.php');
 // Redirection
-header('Location: ../index.php');
+header('Location: index.php');
 
 
 // Selection de la ville
@@ -20,7 +20,7 @@ if ($_GET['city'] === "paris") {
 }
 
 // Parse du fichier env pour récupérer le jeton API
-$env = parse_ini_file('../.env.local');
+$env = parse_ini_file('.env.local');
 $api_key = $env['API_KEY'];
 $api = new APIClient('https://airquality.googleapis.com/v1/');
 
