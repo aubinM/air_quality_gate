@@ -54,7 +54,7 @@ Pour cela il vous suffit de copier/coller le fichier **.env** en **.env.local** 
 
 - Sélection d'une ville et d'une date via un formulaire
 - Execution d'un appel à l'API Google Air quality pour récupérer les données
-- Restitution des données API dans un tableau datatable permetant de filtrer les données
+- Restitution des données API dans un graphique hightchart
 
 ## Tests unitaires
 
@@ -76,7 +76,7 @@ cd tests
 Les dépendances du projet ont été ajouté via dess CDN pour simplifier au maximum l'execution du projet, l'ajout des dépendances via un package manager serait meilleure.
 
 - [Boostrap](https://getbootstrap.com/)
-- [Datatables](https://datatables.net/)
+- [HightChart](https://www.highcharts.com/)
 - [Datepicker Bootstrap](https://bootstrap-datepicker.readthedocs.io/en/latest/)
 
 
