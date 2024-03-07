@@ -93,7 +93,7 @@ if (isset($_SESSION['APIerror'])) {
               if (isset($error)) {
                 echo '<div class="pt-2">
                 <div class="alert alert-danger" role="alert">
-                  '.$error.'
+                  ' . $error . '
                 </div>
               </div>';
               }
@@ -123,32 +123,13 @@ if (isset($_SESSION['APIerror'])) {
             Historique de la qualité de l'air
           </h1>
           <h4>Ville sélectionnée : <span class="badge text-bg-success"><?php echo ($selectedCity->getName()); ?></span></h4>
-
-          <div class="table-responsive">
-            <!-- Tableau de restitution des données de qualité de l'air -->
-            <table id="dataViewver" class="table table-borderless table-striped align-middle">
-              <thead>
-                <tr>
-                  <th scope="col">Heure</th>
-                  <th scope="col">Qualité de l'air</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                if ($datas !== "") {
-                  foreach ($datas as $key => $data) {
-                    echo '<tr>
-                    <th>' . convertDateToDisplayFormat($data['dateTime']) . '</th>
-                    <td><span class="badge bg-primary ' . getDisplayFromAqi($data['aqi']) . '">' . $data['category'] . '</span></td>
-                  </tr>';
-                  }
-                }
-
-                ?>
-
-              </tbody>
-            </table>
-          </div>
+          <div id="donnees"></div>
+          <figure class="highcharts-figure">
+            <div id="container"></div>
+            <p class="highcharts-description">
+              Graphique de la qualité de l'air
+            </p>
+          </figure>
         </div>
       </div>
 
@@ -170,6 +151,7 @@ if (isset($_SESSION['APIerror'])) {
   <script src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap5.js"></script>
   <script src="https://cdn.datatables.net/responsive/3.0.0/js/dataTables.responsive.js"></script>
   <script src="https://cdn.datatables.net/responsive/3.0.0/js/responsive.bootstrap5.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="assets/js/main.js"></script>
 </body>
 

@@ -7,7 +7,7 @@ require_once('classes/City.php');
 require_once('classes/PostDataBuilder.php');
 require_once('utils.php');
 // Redirection
-header('Location: index.php');
+// header('Location: index.php');
 
 
 // Selection de la ville
@@ -49,6 +49,8 @@ try {
     $parsedData = ApiResponseParser::parse(json_encode($response));
     // Stockage des données en session
     $_SESSION['datas'] = $parsedData;
+
+    echo json_encode($parsedData);
 
 } catch (Exception $e) {
     // Gestion de l'erreur API
