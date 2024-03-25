@@ -3,6 +3,13 @@
 
 Ce petit projet consiste à récupérer la qualité de l'air de 2 villes sur les 30 derniers jours via l'API Air Quality de Google.
 
+## Variables d'envrionnement
+
+Pour exécuter ce projet, vous devrez ajouter les variables d’environnement suivantes à votre fichier **.env.local**.
+
+`API_KEY`
+
+Pour cela il vous suffit de copier/coller le fichier **.env** en **.env.local** et de rajouter la clé API.
 
 ## Installation
 
@@ -63,14 +70,6 @@ Arrêt du serveur Web avec docker :
 
 symfony serve:stop
 ````
-
-## Variables d'envrionnement
-
-Pour exécuter ce projet, vous devrez ajouter les variables d’environnement suivantes à votre fichier **.env.local**.
-
-`API_KEY`
-
-Pour cela il vous suffit de copier/coller le fichier **.env** en **.env.local** et de rajouter la clé API.
 
 
 ## Features
