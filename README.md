@@ -6,12 +6,12 @@ Ce petit projet consiste à récupérer la qualité de l'air de 2 villes sur les
 
 ## Installation
 
-Ce projet est une migration du projet précédent vers le Framework Symfony, pour le lancer vous avez seulement besoin des éléments suivants :
+Ce projet est une migration du projet précédent vers le Framework Symfony version 7.0.5, pour le lancer vous avez seulement besoin des éléments suivants :
 
 - Installation de PHP 8.2 ou supérieur
-- Installation de [Composer](https://getcomposer.org/download/)
-- Installation de [Symfony CLI](https://symfony.com/download)
-- Installation de [NodeJS](https://nodejs.org/en/download)
+- Installation de [Composer](https://getcomposer.org/download/) (< Version 2)
+- Installation de [Symfony CLI](https://symfony.com/download) (< Version 5)
+- Installation de [NodeJS](https://nodejs.org/en/download) (< Version 20)
 
 Après installation, vérifier que l'installation est correct avec la commande suivante :
 
