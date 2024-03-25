@@ -6,39 +6,62 @@ Ce petit projet consiste à récupérer la qualité de l'air de 2 villes sur les
 
 ## Installation
 
-Ce projet est un projet simple écrit en PHP 8.2.12, pour le lancer vous avez seulement besoin d'un serveur Web de type Apache/Nginx, cette branche du projet vous permet de lancer le projet à l'aide de docker.
+Ce projet est une migration du projet précédent vers le Framework Symfony, pour le lancer vous avez seulement besoin des éléments suivants :
 
-- Docker version 25.0.3
-- Docker Compose version v2.24.5-desktop.1
-- PHP 8.2.12
-- HTML
-- CSS / Boostrap 5.3
-- Javascript  
+- Installation de PHP 8.2 ou supérieur
+- Installation de [Composer](https://getcomposer.org/download/)
+- Installation de [Symfony CLI](https://symfony.com/download)
+- Installation de [NodeJS](https://nodejs.org/en/download)
 
-Lancement du serveur Web avec docker : 
+Après installation, vérifier que l'installation est correct avec la commande suivante :
 
 ````
-docker-compose up -d
+symfony check:requirements
 ````
 
-Vérifier que le conteneur est bien up : 
+Si la commande retourne [OK], bravo vous avez toutes les exigences technique pour initialiser le projet. Veuillez maintenant procéder à l'initialisation.
+
+Installation des paquets Symfony : 
 
 ````
-docker-compose ls
-NAME                STATUS              CONFIG FILES
-air_quality_gate    running(1)          ******
+composer install
+````
+
+Installation des modules Node : 
+
+````
+npm install
+````
+
+Compilation des assets node : 
+
+````
+npm run dev
+````
+
+Installation du certficat d'autorité pour connexion HTTPS : 
+
+````
+symfony server:ca:install
+````
+
+Lancement du serveur Web Symfony : 
+
+````
+symfony serve -d
 ````
 
 Accéder à l'application avec l'url : 
 
 ````
-http://localhost:8080
+https://localhost:8000
 ````
 
 Arrêt du serveur Web avec docker : 
 
 ````
-docker-compose down
+
+symfony serve:stop
 ````
 
 ## Variables d'envrionnement
@@ -56,24 +79,10 @@ Pour cela il vous suffit de copier/coller le fichier **.env** en **.env.local** 
 - Execution d'un appel à l'API Google Air quality pour récupérer les données
 - Restitution des données API dans un graphique hightchart
 
-## Tests unitaires
-
-Pour lancer les tests unitaires, il vous suffit de vous rendre dans le dossier /tests et de lancer la commande suivante : 
-
-````
-docker-compose exec webserver sh
-````
-
-Une fois dans le conteneur, executer les commandes suivantes : 
-
-````
-cd tests
-./phpunit --bootstrap autoload.php UtilsTest.php
-````
 
 ## Dépendances
 
-Les dépendances du projet ont été ajouté via dess CDN pour simplifier au maximum l'execution du projet, l'ajout des dépendances via un package manager serait meilleure.
+Les dépendances du projet ont été ajouté via dess CDN pour simplifier au maximum l'execution du projet, l'ajout des dépendances via le package manager npm serait meilleure.
 
 - [Boostrap](https://getbootstrap.com/)
 - [HightChart](https://www.highcharts.com/)
