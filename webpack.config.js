@@ -21,6 +21,8 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
+    .autoProvidejQuery() 
+    .addEntry('highcharts', './assets/js/highcharts.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -51,10 +53,11 @@ Encore
     .configureBabelPresetEnv((config) => {
         config.useBuiltIns = 'usage';
         config.corejs = '3.23';
-    })
+    }
+    )
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
@@ -69,5 +72,11 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
 ;
+
+// Ajouter le CSS à compiler
+Encore
+    // Si vous utilisez des dépendances npm CSS, ajoutez-les ici
+    .addStyleEntry('bootstrap', './node_modules/bootstrap/dist/css/bootstrap.min.css') // Exemple pour Bootstrap
+
 
 module.exports = Encore.getWebpackConfig();
