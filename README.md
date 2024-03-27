@@ -20,6 +20,14 @@ Ce projet est une migration du projet précédent vers le Framework Symfony vers
 - Installation de [Symfony CLI](https://symfony.com/download) (< Version 5)
 - Installation de [NodeJS](https://nodejs.org/en/download) (< Version 20)
 
+
+
+Installation des paquets Symfony : 
+
+````
+composer install
+````
+
 Après installation, vérifier que l'installation est correct avec la commande suivante :
 
 ````
@@ -27,12 +35,6 @@ symfony check:requirements
 ````
 
 Si la commande retourne [OK], bravo vous avez toutes les exigences technique pour initialiser le projet. Veuillez maintenant procéder à l'initialisation.
-
-Installation des paquets Symfony : 
-
-````
-composer install
-````
 
 Installation des modules Node : 
 
@@ -67,7 +69,6 @@ https://localhost:8000
 Arrêt du serveur Web avec docker : 
 
 ````
-
 symfony serve:stop
 ````
 
